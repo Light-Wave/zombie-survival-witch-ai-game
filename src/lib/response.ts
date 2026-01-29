@@ -31,6 +31,18 @@ export const zombieSurvivalResponse = z.object({
       .describe(
         "Internal memory for the AI to remember important details about the story. Not shown to the user.",
       ),
+    quests: z
+      .object({
+        questName: z.string().describe("The name of the quest."),
+        questDescription: z
+          .string()
+          .describe("A brief description of the quest."),
+        status: z
+          .enum(["not started", "in progress", "completed"])
+          .describe("The current status of the quest."),
+      })
+      .array()
+      .describe("A list of current quests the player has."),
   }),
 });
 

@@ -19,7 +19,7 @@ export async function generateResponse(
   messages.push({
     role: "system",
     content:
-      "You are a magical cat that are mentoring a human witch trying to survive a zombie apocalypse as their familiar.",
+      "You are a magical cat that are mentoring a human witch trying to survive a modern urban zombie apocalypse as their familiar.",
   });
   if (lastResponse) {
     const lastResponseMessage: ModelMessage = {
