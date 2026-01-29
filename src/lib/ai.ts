@@ -2,6 +2,7 @@
 
 import { google } from "@ai-sdk/google";
 import {
+  generateImage,
   generateText,
   ModelMessage,
   Output,
@@ -40,6 +41,16 @@ export async function generateResponse(
     console.warn("AI Warning:", warning);
   });
   return response.output;
+}
+
+export async function paintPicture() {
+  const response = await generateImage({
+    model: google.image("imagen-4.0-generate-001"),
+    prompt:
+      "A dusty, cramped attic, lit by a single grimy window, filled with forgotten trinkets and old furniture. A black cat is visible.",
+    aspectRatio: `4:3`,
+  });
+  return response.image;
 }
 
 /*

@@ -1,6 +1,6 @@
 "use client";
 
-import { generateResponse } from "@/lib/ai";
+import { generateResponse, paintPicture } from "@/lib/ai";
 import { zombieSurvivalResponseType } from "@/lib/response";
 import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
@@ -24,6 +24,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { saveGameState, loadGameState } from "@/lib/savegame";
+import Image from "next/image";
 
 export default function ZombieSurvivalAdventure() {
   const [prompt, setPrompt] = useState("");
@@ -72,6 +73,8 @@ export default function ZombieSurvivalAdventure() {
     await saveGameState([...history, newResponse]);
     setIsLoading(false);
   }
+
+  const [base64Image, setBase64Image] = useState<string>("");
 
   return (
     <div>
@@ -179,6 +182,31 @@ export default function ZombieSurvivalAdventure() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
+                  {response.schema.locationSvg && (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: response.schema.locationSvg,
+                      }}
+                    />
+                  )}
+                  {base64Image !== "" ? (
+                    <Image
+                      className="full"
+                      src={`data:image/png;base64,${base64Image}`}
+                      alt={response.schema.locationName || "Location Image"}
+                      width={400}
+                      height={300}
+                    />
+                  ) : (
+                    <Button
+                      onClick={async () => {
+                        const imgBase64 = await paintPicture();
+                        setBase64Image(imgBase64.base64);
+                      }}
+                    >
+                      Generate Picture
+                    </Button>
+                  )}
                   <p className="text-sm mb-4">
                     {response.schema.locationDescription}
                   </p>

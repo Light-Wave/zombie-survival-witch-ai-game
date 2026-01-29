@@ -14,6 +14,9 @@ export const zombieSurvivalResponse = z.object({
       .describe(
         "A brief description of your current location. Leave undefined to keep the same description.",
       ),
+    locationSvg: z
+      .string()
+      .describe("An SVG image representing your current location."),
     inventory: z
       .array(z.string())
       .nullable()
@@ -47,3 +50,45 @@ export const zombieSurvivalResponse = z.object({
 });
 
 export type zombieSurvivalResponseType = z.infer<typeof zombieSurvivalResponse>;
+
+let temp = {
+  schema: {
+    locationName: "The Bedroom",
+    locationDescription:
+      "You carefully climb down the rickety attic ladder, finding yourself in what appears to be a dusty, disused bedroom. Moonlight filters through a grimy window, illuminating a four-poster bed draped in cobwebs, a chipped dresser, and a shadowy wardrobe. The air here is colder than the attic, and a faint, unsettling groan echoes from somewhere downstairs.",
+    locationSvg: null,
+    inventory: [
+      "Dusty Spellbook",
+      "Bag of Dried Herbs",
+      "Small, Tarnished Bell",
+      "Warm, Scented Candle",
+    ],
+    response:
+      "Hmph, careful now. This place feels... less welcoming than the attic. And did you hear that? Best keep your wits about you, little witch.",
+    suggestedActions: [
+      "Search the dresser",
+      "Open the wardrobe",
+      "Look under the bed",
+      "Try to go downstairs",
+    ],
+    aiMemory:
+      "The user has moved from the attic to the bedroom. The room is dusty and disused, with typical bedroom furniture. A faint groan was heard, indicating potential danger downstairs. The cat familiar is cautious.",
+    quests: [
+      {
+        questName: "Survive the Apocalypse",
+        questDescription: "Stay alive in a world overrun by zombies.",
+        status: "in progress",
+      },
+      {
+        questName: "Learn Basic Magic",
+        questDescription: "Master simple spells to aid in survival.",
+        status: "in progress",
+      },
+      {
+        questName: "Cast 'Spark of Light'",
+        questDescription: "Learn and cast your first basic spell.",
+        status: "completed",
+      },
+    ],
+  },
+};
